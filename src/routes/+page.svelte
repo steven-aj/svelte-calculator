@@ -12,10 +12,13 @@
    $: input;
 
    /**
-    * Set Input - 
-    * @param {{detail: string}} event
+    * Update Input - 
+    * Accepts a PointerEvent from a Numbers button 
+    * and updates the calculator's input.
+    * 
+    * @param {{detail: string}} event - PointerEvent of a Numbers button
     */
-   function setInput({detail}) {
+   function updateInput({detail}) {
       api.input.update(e => {
          if (detail === '.' && e.includes('.')) return e = e;
          else if (detail === '0' && e === '0') return e = e;
@@ -38,7 +41,7 @@
    </div>
    <Keypad>
       <Modifiers slot="modifiers" buttons={api.modifiers} />
-      <Numbers slot="numbers" buttons={api.numbers} on:select={setInput}/>
+      <Numbers slot="numbers" buttons={api.numbers} on:select={updateInput}/>
       <Operators slot="operators" buttons={api.operators} on:select/>
    </Keypad>
 </div>
