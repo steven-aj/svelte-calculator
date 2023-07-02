@@ -1,16 +1,40 @@
 <script>
-   import { operators, numbers, expression } from "@store";
+   import { operators, numbers, expression, input } from "@store";
    import Keypad from "@components/Keypad.svelte";
    import Numbers from "@components/Numbers.svelte";
    import Operators from "@components/Operators.svelte";
 
    $: expression;
+   $: input;
+
+   /**
+    * Build Expression -
+    * @param {any} value
+    */
+   function buildExpression({ detail }) {
+      if ($input === 0) {
+         if (parseFloat(detail) === 0) return;
+         else $input = detail;
+      } else $input += detail;
+   }
+
+   /**
+    * Expression Value - 
+    * Checks a value and returns it if it exists.
+    * @param {any} val
+    */
+   function stringify(val) {
+      return val ? val : '';
+   }
 </script>
 
 <div id="Calculator">
    <div id="Screen">
+      <div class="expression">
+         {stringify($expression.lhs)} {stringify($expression.operation)} {stringify($expression.rhs)}
+      </div>
       <div class="input">
-         {$expression.lhs}
+         {$input}
       </div>
    </div>
    <Keypad>
@@ -19,7 +43,7 @@
          <button class="modifier" style="grid-column: 2;">+/-</button>
          <button class="modifier" style="grid-column: 3;">%</button>
       </div>
-      <Numbers slot="numbers" buttons={numbers} />
+      <Numbers slot="numbers" buttons={numbers} on:select={buildExpression} />
       <Operators slot="operators" buttons={operators} />
    </Keypad>
 </div>
@@ -44,8 +68,6 @@
       grid-template-rows: 1fr 1fr;
       flex-direction: column;
       background-color: #555149;
-      /* height: 100%; */
-      /* width: 100%; */
    }
 
    .input {
@@ -57,7 +79,6 @@
       font-size: 30pt;
       width: inherit;
       justify-content: flex-end;
-      /* background-color: silver; */
       padding: 1rem;
    }
 

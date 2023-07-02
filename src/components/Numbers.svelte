@@ -1,8 +1,12 @@
 <script>
+    import { createEventDispatcher } from "svelte";
+
     /**
      * @type {any[]}
      */
     export let buttons = [];
+
+    let dispatch = createEventDispatcher();
 
     /**
      * Layout -
@@ -19,8 +23,13 @@
 <div id="Numbers">
     {#each buttons as group, row}
         {#each group as digit}
-            <button class="number" style={`grid-row: ${row + 1};`} value={digit} use:layout
-                >{digit}</button
+            <button
+                class="number"
+                style={`grid-row: ${row + 1};`}
+                value={digit}
+                use:layout
+                on:click={(/** @type {{ target: { value: any; }; }} */ ev) =>
+                    dispatch("select", ev.target.value)}>{digit}</button
             >
         {/each}
     {/each}
