@@ -18,16 +18,16 @@ export default class Engine {
       return lhs;
    }
 
-   get operator() {
-      let operator;
-      this.subscribe(data => operator = data.operator);
-      return operator;
-   }
-
    get rhs() {
       let rhs;
       this.subscribe(data => rhs = data.rhs);
       return rhs;
+   }
+
+   get operator() {
+      let operator;
+      this.subscribe(data => operator = data.operator);
+      return operator;
    }
 
    get numbers() {
@@ -90,7 +90,7 @@ export default class Engine {
    }
 
    /**
-    * Toggle Percentage
+    * Toggle Percentage -
     */
    togglePercentage() {
       this.input.update(value => {

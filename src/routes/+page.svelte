@@ -20,9 +20,15 @@
     */
    function updateInput({ detail }) {
       api.input.update((e) => {
+         // Ignore decimal if input has one
          if (detail === "." && e.includes(".")) return (e = e);
+         // Retain zero if decimal is first input
+         else if (detail === "." && e === "0") return (e += detail)
+         // Ignore if zero is first input
          else if (detail === "0" && e === "0") return (e = e);
+         // Build a new value if the current is zero
          else if (e === "0") return (e = detail);
+         // Append input to value
          else return (e += detail);
       });
    }
