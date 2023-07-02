@@ -37,9 +37,9 @@ export default class Engine {
 
    get modifiers() {
       return [
-         { value: 'AC', run: this.reset.bind(this) },
-         { value: '+/-', run: null },
-         { value: '%', run: null }
+         { value: 'AC', execute: this.reset.bind(this) },
+         { value: '+/-', execute: this.toggleNegativity.bind(this) },
+         { value: '%', execute: null }
       ];
    }
 
@@ -70,5 +70,19 @@ export default class Engine {
          operator: null,
          rhs: null
       });
+   }
+
+   /**
+    * Toggle Negativity - 
+    */
+   toggleNegativity() {
+      this.input.update(value => {
+         if (value === '0') return value = value;
+         else if (!value.includes('-')) {
+            return value = `-${value}`
+         } else {
+            return value = value.split('-')[1];
+         }
+      })
    }
 }

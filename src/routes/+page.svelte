@@ -12,37 +12,31 @@
    $: input;
 
    /**
-    * Update Input - 
-    * Accepts a PointerEvent from a Numbers button 
+    * Update Input -
+    * Accepts a PointerEvent from a Numbers button
     * and updates the calculator's input.
-    * 
+    *
     * @param {{detail: string}} event - PointerEvent of a Numbers button
     */
-   function updateInput({detail}) {
-      api.input.update(e => {
-         if (detail === '.' && e.includes('.')) return e = e;
-         else if (detail === '0' && e === '0') return e = e;
-         else if (e === '0') return e = detail;
-         else return e += detail;
+   function updateInput({ detail }) {
+      api.input.update((e) => {
+         if (detail === "." && e.includes(".")) return (e = e);
+         else if (detail === "0" && e === "0") return (e = e);
+         else if (e === "0") return (e = detail);
+         else return (e += detail);
       });
    }
 </script>
 
 <div id="Calculator">
    <div id="Screen">
-      <div class="expression">
-         {#if $expression}
-            {api.lhs} {api.operator} {api.rhs}
-         {/if}
-      </div>
-      <div class="input">
-         {$input}
-      </div>
+      <div class="expression">{api.lhs} {api.operator} {api.rhs}</div>
+      <div class="input">{$input}</div>
    </div>
    <Keypad>
       <Modifiers slot="modifiers" buttons={api.modifiers} />
-      <Numbers slot="numbers" buttons={api.numbers} on:select={updateInput}/>
-      <Operators slot="operators" buttons={api.operators} on:select/>
+      <Numbers slot="numbers" buttons={api.numbers} on:select={updateInput} />
+      <Operators slot="operators" buttons={api.operators} />
    </Keypad>
 </div>
 

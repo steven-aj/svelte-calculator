@@ -11,7 +11,7 @@
          class="modifier"
          style={`grid-column: ${i + 1};`}
          value={mod}
-         on:click={() => mod.run()}>{mod.value}</button
+         on:click={() => mod.execute()}>{mod.value}</button
       >
    {/each}
 </div>
