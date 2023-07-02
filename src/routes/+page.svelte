@@ -8,7 +8,11 @@
 </script>
 
 <div id="Calculator">
-   <div id="Screen" />
+   <div id="Screen">
+      <div class="input">
+         {$expression.lhs}
+      </div>
+   </div>
    <Keypad>
       <div slot="modifiers" id="Modifiers">
          <button class="modifier" style="grid-column: 1;">AC</button>
@@ -35,9 +39,26 @@
    }
 
    #Screen {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
       flex-direction: column;
       background-color: #555149;
+      /* height: 100%; */
+      /* width: 100%; */
+   }
+
+   .input {
+      grid-row: 2;
+      grid-column: 1;
+      display: flex;
+      flex-direction: row;
+      color: white;
+      font-size: 30pt;
+      width: inherit;
+      justify-content: flex-end;
+      /* background-color: silver; */
+      padding: 1rem;
    }
 
    #Modifiers {
