@@ -56,7 +56,7 @@
       width: 100%;
       box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.2);
       border-radius: 1rem;
-      /* overflow: hidden; */
+      overflow: hidden;
    }
 
    #Screen {
@@ -65,7 +65,7 @@
       grid-template-rows: 1fr 1fr;
       flex-direction: column;
       background-color: #555149;
-      padding: 1rem;
+      padding: 0.25rem 1rem;
    }
 
    .expression {
@@ -79,11 +79,10 @@
       grid-row: 2;
       grid-column: 1;
       display: flex;
-      flex-direction: row;
+      flex-direction: row-reverse;
       color: white;
       font-size: 30pt;
-      justify-content: flex-end;
       width: 100%;
-      overflow-x: scroll;
+      overflow-x: auto;
    }
 </style>
