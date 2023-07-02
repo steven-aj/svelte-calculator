@@ -4,8 +4,12 @@ import stringMath from 'string-math';
 
 export default class Engine {
    constructor() {
-      this.expression = writable({ lhs: 0, operator: null, rhs: null });
       this.input = writable('0');
+      this.expression = writable({ 
+         lhs: 0, 
+         operator: null, 
+         rhs: null 
+      });
    }
 
    get lhs() {
@@ -39,7 +43,7 @@ export default class Engine {
       return [
          { value: 'AC', execute: this.reset.bind(this) },
          { value: '+/-', execute: this.toggleNegativity.bind(this) },
-         { value: '%', execute: null }
+         { value: '%', execute: this.togglePercentage.bind(this) }
       ];
    }
 
@@ -61,7 +65,6 @@ export default class Engine {
 
    /**
     * Reset - 
-    * @returns 
     */
    reset() {
       this.input.update(i => i = '0');
@@ -83,6 +86,17 @@ export default class Engine {
          } else {
             return value = value.split('-')[1];
          }
+      })
+   }
+
+   /**
+    * Toggle Percentage
+    */
+   togglePercentage() {
+      this.input.update(value => {
+         if (value === '0') return value = value;
+         else if (Number(value) < 1) return value = `${Number(value * 100)}`;
+         else return value = `${Number(value / 100)}`
       })
    }
 }
