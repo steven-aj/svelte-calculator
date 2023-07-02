@@ -1,5 +1,4 @@
 <script>
-   import { onMount } from "svelte";
    import Calculator from "@lib/Calculator.js";
    import Keypad from "@components/Keypad.svelte";
    import Modifiers from "@components/Modifiers.svelte";
@@ -13,11 +12,10 @@
    $: input;
 
    /**
-    * 
+    * Set Input - 
     * @param {{detail: string}} event
     */
    function setInput({detail}) {
-      // @ts-ignore
       api.input.update(e => {
          if (detail === '.' && e.includes('.')) return e = e;
          else if (detail === '0' && e === '0') return e = e;
@@ -70,8 +68,8 @@
 
    .expression {
       display: flex;
+      flex-direction: row-reverse;
       padding: 1rem;
-      justify-content: flex-end;
       color: silver;
    }
 
