@@ -1,50 +1,47 @@
 <script>
-   import { operators, numbers, expression, input } from "@store";
+   import { onMount } from "svelte";
+   import Calculator from "@lib/Calculator.js";
    import Keypad from "@components/Keypad.svelte";
+   import Modifiers from "@components/Modifiers.svelte";
    import Numbers from "@components/Numbers.svelte";
    import Operators from "@components/Operators.svelte";
 
+   const api = new Calculator();
+
+   let { input, expression } = api;
    $: expression;
    $: input;
 
    /**
-    * Build Expression -
-    * @param {any} value
+    * 
+    * @param {{detail: string}} event
     */
-   function buildExpression({ detail }) {
-      if ($input === 0) {
-         if (parseFloat(detail) === 0) return;
-         else $input = detail;
-      } else $input += detail;
-   }
-
-   /**
-    * Expression Value - 
-    * Checks a value and returns it if it exists.
-    * @param {any} val
-    */
-   function stringify(val) {
-      return val ? val : '';
+   function setInput({detail}) {
+      // @ts-ignore
+      api.input.update(e => {
+         if (detail === '.' && e.includes('.')) return e = e;
+         else if (detail === '0' && e === '0') return e = e;
+         else if (e === '0') return e = detail;
+         else return e += detail;
+      });
    }
 </script>
 
 <div id="Calculator">
    <div id="Screen">
       <div class="expression">
-         {stringify($expression.lhs)} {stringify($expression.operation)} {stringify($expression.rhs)}
+         {#if $expression}
+            {api.lhs} {api.operator} {api.rhs}
+         {/if}
       </div>
       <div class="input">
          {$input}
       </div>
    </div>
    <Keypad>
-      <div slot="modifiers" id="Modifiers">
-         <button class="modifier" style="grid-column: 1;">AC</button>
-         <button class="modifier" style="grid-column: 2;">+/-</button>
-         <button class="modifier" style="grid-column: 3;">%</button>
-      </div>
-      <Numbers slot="numbers" buttons={numbers} on:select={buildExpression} />
-      <Operators slot="operators" buttons={operators} />
+      <Modifiers slot="modifiers" buttons={api.modifiers} />
+      <Numbers slot="numbers" buttons={api.numbers} on:select={setInput}/>
+      <Operators slot="operators" buttons={api.operators} on:select/>
    </Keypad>
 </div>
 
@@ -59,7 +56,7 @@
       width: 100%;
       box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.2);
       border-radius: 1rem;
-      overflow: hidden;
+      /* overflow: hidden; */
    }
 
    #Screen {
@@ -68,6 +65,14 @@
       grid-template-rows: 1fr 1fr;
       flex-direction: column;
       background-color: #555149;
+      padding: 1rem;
+   }
+
+   .expression {
+      display: flex;
+      padding: 1rem;
+      justify-content: flex-end;
+      color: silver;
    }
 
    .input {
@@ -77,14 +82,8 @@
       flex-direction: row;
       color: white;
       font-size: 30pt;
-      width: inherit;
       justify-content: flex-end;
-      padding: 1rem;
-   }
-
-   #Modifiers {
-      display: grid;
-      grid-row: 1;
-      grid-column: 1;
+      width: 100%;
+      overflow-x: scroll;
    }
 </style>

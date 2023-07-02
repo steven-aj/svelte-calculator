@@ -1,8 +1,20 @@
 <script>
+   import { createEventDispatcher } from "svelte";
    /**
     * @type {any[]}
     */
    export let buttons = [];
+
+   let dispatch = createEventDispatcher();
+
+   /**
+    * 
+    * @param {PointerEvent|null} ev
+    */
+   function select(ev) {
+      // @ts-ignore
+      dispatch('select', ev.target.value);
+   }
 </script>
 
 <div id="Operators">

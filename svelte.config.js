@@ -9,7 +9,8 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			'@components': 'src/components',
-			'@store': 'src/store.js'
+			'@store': 'src/store.js',
+			'@lib': 'src/lib'
 		}
 	}
 };

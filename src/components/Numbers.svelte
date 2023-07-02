@@ -14,7 +14,7 @@
      * @param {HTMLElement} el - The element to style
      */
     function layout(el) {
-        if (parseInt(el.innerText) === 0) {
+        if (el.innerText === '0') {
             el.style.gridColumn = "span 2";
         }
     }
@@ -28,7 +28,7 @@
                 style={`grid-row: ${row + 1};`}
                 value={digit}
                 use:layout
-                on:click={(/** @type {{ target: { value: any; }; }} */ ev) =>
+                on:click={(/** @type {{ target: { value: string; }; }} */ ev) =>
                     dispatch("select", ev.target.value)}>{digit}</button
             >
         {/each}
