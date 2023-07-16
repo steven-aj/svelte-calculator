@@ -1,6 +1,6 @@
 # Svelte Calculator
 
-> **IN PROGRESS** This project is still under development.
+> **IN PROGRESS** This recreational project is still under development.
 
 A basic arithmetic calculator built with Svelte.
 
