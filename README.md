@@ -7,9 +7,6 @@ A basic arithmetic calculator built with Svelte.
 Powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
 ## Todo
-
-
-## Todo
 - [x] ~~Build layout~~
 - [x] ~~Implement modifier functions~~
 - [ ] Complete View logic
